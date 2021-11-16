@@ -1,0 +1,86 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Leaning Sequlize",
+		"contact": {
+            "name": "Mathews"
+        },
+		"version": "1.0",
+		"description": "API Docs"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000"
+		}
+	],
+    "components":{
+        "schemas":{
+            "Company":{
+                "title": "Company Model",
+                "required":[
+                    "name", "location","employeeCount"
+                ],
+                "type":"object",
+                "properties":{
+                    "name": {
+                        "type":"string"
+                    },
+                    "location": {
+                        "type":"string"
+                    },
+                    "employeeCount":{
+                        "type":"integer"
+                    }
+                }
+            },
+            "User":{
+                "title": "User Model",
+                "required":[
+                    "firstName", "secondName","dateOfBirth"
+                ],
+                "type":"object",
+                "properties":{
+                    "firstName": {
+                        "type":"string"
+                    },
+                    "secondName": {
+                        "type":"string"
+                    },
+                    "dateOfBirth":{
+                        "type":"date"
+                    }
+                }
+            },
+            "Address":{
+                "title": "Address Model",
+                "required":[
+                    "houseNumber", "city","state","countryCode"
+                ],
+                "type":"object",
+                "properties":{
+                    "houseNumber": {
+                        "type":"integer"
+                    },
+                    "city": {
+                        "type":"string"
+                    },
+                    "state":{
+                        "type":"date"
+                    },
+                    "countryCode":{
+                        "type":"date"
+                    }
+                }
+            }
+        }
+    },
+    "paths":{},
+    "apis": [
+		"./src/routers/*router.js"
+	],
+    "security": [
+		{
+			"bearerAuth": []
+		}
+	]
+}

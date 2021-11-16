@@ -6,8 +6,18 @@ addressRouter.post(`/create`, addressController.createAddress, (req, res) => {
     res.json({ res })
 })
 
-// addressRouter.get(`/:id`, addressController.getAddressById, (req, res) => {
-//     res.json({ res })
-// })
+addressRouter.delete('/:id', addressController.deleteAddressById, (req, res) => {
+    res.json({ res });
+})
+
+addressRouter.get('/all', addressController.getAllAddresses, (req, res) => {
+    res.json({ res });
+});
+
+addressRouter.get('/:id', addressController.getAddressById, (req, res) => {
+    res.json({ res });
+})
+
+
 
 module.exports = addressRouter;

@@ -29,4 +29,8 @@ userRouter.delete(`/:id`, userController.deleteUserById, (req, res) => {
     res.json({ res });
 })
 
+userRouter.delete('/all', userController.deleteAllUsers, (req,res) => {
+    res.json({res});
+})
+
 module.exports = userRouter;

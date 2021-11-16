@@ -1,5 +1,7 @@
-// const Address = require("../models/address.model");
-// const User = require('../models/user.model');
+const Address = require("../models/address.model");
+const User = require('../models/user.model');
+// const { models } = require('../config/db.config');
+
 
 exports.createAddress = async (req, res) => {
     try {
@@ -22,16 +24,16 @@ exports.createAddress = async (req, res) => {
             state: newAddress.state,
             countryCode: newAddress.countryCode,
             userId: newAddress.userId
-        }
-        // ,{
-        //     include:[{
-        //         association: User,
-        //     }]
-        // }
-        ).then(async savedAddress => {
-            await User.update({ addressId: savedAddress.id }, {
+        }, {
+            include: [User]
+        }).then(async savedAddress => {
+            return res.status(200).send({
+                message: `sucess saving the address and id to user`,
+                savedAddress
+            })
+            await user.update({ addressId: savedAddress.id }, {
                 where: {
-                    id: user.id
+                    id: newAddress.userId
                 }
             }).then(user => {
                 return res.status(200).send({
@@ -49,6 +51,86 @@ exports.createAddress = async (req, res) => {
             console.error(err);
             return res.status(500).send({
                 message: `Server Error occurred while creating address`
+            })
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: `Server Error occurred`
+        })
+    }
+}
+
+exports.deleteAddressById = async (req, res) => {
+    try {
+        if (await Address.findByPk(req.params.id))
+            await Address.destroy({
+                where: {
+                    id: req.params.id
+                }
+            }).then(data => {
+                return res.status(200).send({
+                    message: `success`,
+                    data
+                })
+            })
+        return res.status(401).send({
+            message: `Requested data could not be found`
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: `Server Error occurred`
+        })
+    }
+}
+
+exports.getAddressById = async (req, res) => {
+    try {
+        console.log(`getting address in ${req.params.id}`);
+        await Address.findByPk(req.params.id, {
+            include: [User]
+        }).then(data => {
+            return res.status(200).send({
+                message: `success`,
+                data
+            })
+        }).catch(err => {
+            console.log(err);
+            return res.status(401).send({
+                message: `Requested data could not be found`,
+                err
+            })
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            message: `Server Error occurred`
+        })
+    }
+}
+
+
+exports.getAllAddresses = async (req, res) => {
+    try {
+        await Address.findAll({
+            attributes: ['houseNumber', 'city', 'state', 'countryCode'],
+            include: [{
+                model: User,
+                attributes: [['firstName', 'name']],
+                required: true,
+                right: true
+            }]
+        }).then(async data => {
+                return res.status(200).send({
+                    message: `success`,
+                    data
+            })
+        }).catch(err => {
+            console.error(err);
+            return res.status(401).send({
+                message: `Requested data could not be found`,
+                err
             })
         })
     } catch (error) {

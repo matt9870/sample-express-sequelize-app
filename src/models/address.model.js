@@ -1,27 +1,25 @@
 const { DataTypes } = require('sequelize');
-// const sequelize = require('../config/db.config');
-// const User = require('./user.model');
+const sequelize = require('../config/db.config');
 
-module.exports = (sequelize) => {
-    sequelize.define('address',{
-        houseNumber: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        city: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        state: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        countryCode: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    })
-}
+
+module.exports = sequelize.define('address', {
+    houseNumber: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    state: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    countryCode: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
 
 // const Address = sequelize.define('address', {
 //     houseNumber: {

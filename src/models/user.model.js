@@ -1,24 +1,20 @@
 const { DataTypes } = require('sequelize');
-// const sequelize = require('../config/db.config');
-// const Address = require('./address.model');
+const sequelize = require('../config/db.config');
 
-
-module.exports = (sequelize) => {
-    sequelize.define('user',{
-        firstName: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        dateOfBirth: {
-            type: DataTypes.DATE,
-            allowNull: false
-        }
-    })
-}
+module.exports = sequelize.define('user', {
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    dateOfBirth: {
+        type: DataTypes.DATE,
+        allowNull: false
+    }
+})
 
 // const User = sequelize.define('user', {
 //     firstName: {
@@ -45,6 +41,5 @@ module.exports = (sequelize) => {
 //             foreignKey: 'addressId'
 //         })
 //     }    
-// User.hasOne(Address);
 
 // module.exports = User;
