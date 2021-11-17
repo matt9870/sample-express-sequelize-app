@@ -25,7 +25,7 @@ userRouter.get(`/:id`, userController.findUserById, (req, res) => {
     res.json({ res });
 })
 
-userRouter.delete(`/:id`, userController.deleteUserById, (req, res) => {
+userRouter.delete(`/delete/:id`, userController.deleteUserById, (req, res) => {
     res.json({ res });
 })
 

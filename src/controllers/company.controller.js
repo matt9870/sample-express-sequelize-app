@@ -1,13 +1,13 @@
-const { fn,col } = require('sequelize');
+const { fn, col } = require('sequelize');
 const Company = require('../models/company.model');
 const User = require('../models/user.model');
 
-exports.createCompany = async (req,res) => {
+exports.createCompany = async (req, res) => {
     try {
-        if(!req.body)
-        return res.status(400).send({
-            message: 'Company content can not be empty'
-        })
+        if (!req.body)
+            return res.status(400).send({
+                message: 'Company content can not be empty'
+            })
         await Company.create({
             name: req.body.name,
             employeeCount: req.body.employeeCount,
@@ -26,19 +26,26 @@ exports.createCompany = async (req,res) => {
     }
 }
 
-exports.getEmployees = async(req,res) => {
+exports.getEmployees = async (req, res) => {
     try {
-        await Company.findByPk(req.params.id,{
-            attributes:['name'],
-            include:{
-                model:User,
+        await Company.findByPk(req.params.id, {
+            attributes: ['name'],
+            include: {
+                model: User,
                 as: 'Employees',
-                attributes: ['id',[fn('CONCAT', col(`firstName`), ' ', col(`lastName`)), `Name`]]
+                attributes: ['id', [fn('CONCAT', col(`firstName`), ' ', col(`lastName`)), `Name`]]
             }
-        }).then(company =>{
-            return res.status(200).send({
-                message:'success',
-                company
+        }).then(companyInformation => {
+            let message = `Employees found`
+            if (!companyInformation.Employees.length > 0) {
+                companyInformation = `No employees found associated with ${companyInformation.name}`
+            }
+            console.log(message);
+            return res.status(200).send({ message, companyInformation });
+        }).catch(error => {
+            console.error(error);
+            return res.status(500).send({
+                message: `Id not associated with any company or some other error occurred`
             })
         })
     } catch (error) {
@@ -51,7 +58,7 @@ exports.getEmployees = async(req,res) => {
 
 exports.getCompany = async (req, res) => {
     try {
-        await Company.findByPk(req.params.id,{
+        await Company.findByPk(req.params.id, {
             attributes: ['name', 'employeeCount']
         }).then(company => {
             return res.status(200).json({

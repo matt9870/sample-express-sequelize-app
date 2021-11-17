@@ -46,6 +46,7 @@ async function init() {
 init().then(() => {
   app.listen(port, () => {
     console.log(`Sample app listening at http://localhost:${port}`);
+    console.log(`Swagger docs online at http://localhost:${port}/api-docs`);
   })
 })
 

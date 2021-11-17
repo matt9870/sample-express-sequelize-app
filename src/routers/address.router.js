@@ -6,7 +6,7 @@ addressRouter.post(`/create`, addressController.createAddress, (req, res) => {
     res.json({ res })
 })
 
-addressRouter.delete('/:id', addressController.deleteAddressById, (req, res) => {
+addressRouter.delete('/delete/:id', addressController.deleteAddressById, (req, res) => {
     res.json({ res });
 })
 

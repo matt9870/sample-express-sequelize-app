@@ -91,6 +91,9 @@ exports.getAddressById = async (req, res) => {
         await Address.findByPk(req.params.id, {
             include: [User]
         }).then(data => {
+            if(!data){
+                data = `No user linked with this id`
+            }
             return res.status(200).send({
                 message: `success`,
                 data
@@ -114,10 +117,10 @@ exports.getAddressById = async (req, res) => {
 exports.getAllAddresses = async (req, res) => {
     try {
         await Address.findAll({
-            attributes: ['houseNumber', 'city', 'state', 'countryCode'],
+            attributes: ['id','houseNumber', 'city', 'state', 'countryCode'],
             include: [{
                 model: User,
-                attributes: [['firstName', 'name']],
+                attributes: ['id',['firstName', 'name']],
                 required: true,
                 right: true
             }]

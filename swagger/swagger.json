@@ -1,86 +1,390 @@
 {
-	"openapi": "3.0.0",
-	"info": {
-		"title": "Leaning Sequlize",
-		"contact": {
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Leaning Sequlize",
+        "contact": {
             "name": "Mathews"
         },
-		"version": "1.0",
-		"description": "API Docs"
-	},
-	"servers": [
-		{
-			"url": "http://localhost:3000"
-		}
-	],
-    "components":{
-        "schemas":{
-            "Company":{
+        "version": "1.0",
+        "description": "API Docs"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Company": {
                 "title": "Company Model",
-                "required":[
-                    "name", "location","employeeCount"
+                "required": [
+                    "name",
+                    "location",
+                    "employeeCount"
                 ],
-                "type":"object",
-                "properties":{
+                "type": "object",
+                "properties": {
                     "name": {
-                        "type":"string"
+                        "type": "string"
                     },
                     "location": {
-                        "type":"string"
+                        "type": "string"
                     },
-                    "employeeCount":{
-                        "type":"integer"
+                    "employeeCount": {
+                        "type": "integer"
                     }
                 }
             },
-            "User":{
+            "User": {
                 "title": "User Model",
-                "required":[
-                    "firstName", "secondName","dateOfBirth"
+                "required": [
+                    "firstName",
+                    "secondName",
+                    "dateOfBirth"
                 ],
-                "type":"object",
-                "properties":{
+                "type": "object",
+                "properties": {
                     "firstName": {
-                        "type":"string"
+                        "type": "string"
                     },
                     "secondName": {
-                        "type":"string"
+                        "type": "string"
                     },
-                    "dateOfBirth":{
-                        "type":"date"
+                    "dateOfBirth": {
+                        "type": "date"
                     }
                 }
             },
-            "Address":{
+            "Address": {
                 "title": "Address Model",
-                "required":[
-                    "houseNumber", "city","state","countryCode"
+                "required": [
+                    "houseNumber",
+                    "city",
+                    "state",
+                    "countryCode"
                 ],
-                "type":"object",
-                "properties":{
+                "type": "object",
+                "properties": {
                     "houseNumber": {
-                        "type":"integer"
+                        "type": "integer"
                     },
                     "city": {
-                        "type":"string"
+                        "type": "string"
                     },
-                    "state":{
-                        "type":"date"
+                    "state": {
+                        "type": "date"
                     },
-                    "countryCode":{
-                        "type":"date"
+                    "countryCode": {
+                        "type": "date"
                     }
                 }
             }
         }
     },
-    "paths":{},
+    "paths": {
+        "/company/details/{id}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get a company by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got the company details",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/company/create": {
+            "post": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Add new company to Database",
+                "requestBody": {
+                    "description": "Provide all details required",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "employeeCount": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Alphabet",
+                                "location": "Gurgaon",
+                                "employeeCount": 0
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New company added to Database",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/company/allEmployees/{id}":{
+            "get":{
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get all employees of a company",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got all employees of a company",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/all":{
+            "get":{
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "Got all users",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/create":{
+            "post":{
+                "tags": [
+                    "User"
+                ],
+                "summary": "Add new user to Database",
+                "requestBody": {
+                    "description": "Provide all details required",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "secondName": {
+                                        "type": "string"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "date"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "firstName": "John",
+                                "secondName": "Doe",
+                                "dateOfBirth": "2020-01-01"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New user added to Database",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/{id}":{
+            "get":{
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get a user and addresses associated using  user id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got the user details",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/users/delete/{id}":{
+            "delete":{
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete a user by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/address/all":{
+            "get":{
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Get all addresses",
+                "responses": {
+                    "200": {
+                        "description": "Got all addresses",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/address/create":{
+            "post":{
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Add new address to Database",
+                "requestBody": {
+                    "description": "Provide all details required",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "houseNumber": {
+                                        "type": "integer"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "date"
+                                    },
+                                    "countryCode": {
+                                        "type": "date"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "houseNumber": 1,
+                                "city": "Gurgaon",
+                                "state": "2020-01-01",
+                                "countryCode": "IN"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New address added to Database",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/address/{id}":{
+            "get":{
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Get an address and user associated using address id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Got the address details",
+                        "headers": {}
+                    }
+                }
+            }
+        },
+        "/address/delete/{id}":{
+            "delete":{
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Delete an address by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Address deleted",
+                        "headers": {}
+                    }
+                }
+            }
+        }        
+    },
     "apis": [
-		"./src/routers/*router.js"
-	],
+        "./src/routers/*router.js"
+    ],
     "security": [
-		{
-			"bearerAuth": []
-		}
-	]
+        {
+            "bearerAuth": []
+        }
+    ]
 }
