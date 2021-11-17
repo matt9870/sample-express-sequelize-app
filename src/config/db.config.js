@@ -1,8 +1,15 @@
 const { Sequelize } = require('sequelize');
+
+// const sequelize = new Sequelize('Database Name', 'mysql user name', 'mysql user password', {
+//     host: 'localhost',
+//     dialect: 'mysql'
+// })
+
 const sequelize = new Sequelize('sampleSequelizeDB', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql'
 })
+
 
 // const modelDefiners = [
 //     require('../models/address.model'),
