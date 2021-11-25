@@ -4,17 +4,20 @@
   "description": "a sample project to learn Sequelize",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
-    "start": "nodemon app.js"
+    "test": "env-cmd -f ./src/config/test.env jest --watchAll --detectOpenHandles",
+    "dev": "env-cmd -f ./src/config/dev.env nodemon server.js",
+    "start": "env-cmd -f ./src/config/dev.env nodemon server.js"
   },
   "author": "Matt",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "mysql2": "^2.3.3-rc.0",
     "nodemon": "^2.0.15",
     "sequelize": "^6.9.0",
+    "supertest": "^6.1.6",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {

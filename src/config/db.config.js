@@ -1,6 +1,5 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config()
-
+// require('dotenv').config()
 
 let user = process.env.DB_USER;
 let pass = process.env.DB_PASS;

@@ -8,6 +8,7 @@ exports.createCompany = async (req, res) => {
             return res.status(400).send({
                 message: 'Company content can not be empty'
             })
+            console.log(req.body);
         await Company.create({
             name: req.body.name,
             employeeCount: req.body.employeeCount,
@@ -19,7 +20,7 @@ exports.createCompany = async (req, res) => {
             });
         })
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return res.status(500).send({
             message: `Server Error occurred`
         })
@@ -40,8 +41,9 @@ exports.getEmployees = async (req, res) => {
             if (!companyInformation.Employees.length > 0) {
                 companyInformation = `No employees found associated with ${companyInformation.name}`
             }
-            console.log(message);
+            // console.log(message);
             return res.status(200).send({ message, companyInformation });
+            
         }).catch(error => {
             console.error(error);
             return res.status(500).send({

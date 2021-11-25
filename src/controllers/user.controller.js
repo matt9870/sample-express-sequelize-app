@@ -15,43 +15,44 @@ exports.createUser = async (req, res) => {
         await User.create({
             firstName: userData.firstName,
             lastName: userData.lastName,
-            dateOfBirth: userData.dateOfBirth,
-            companyId: userData.companyId
+            dateOfBirth: userData.dateOfBirth
+            // companyId: userData.companyId
         }).then(async user => {
-            
-            Company.findByPk(user.companyId)
-            .then(company => {
-                
-                company.update({
-                    employeeCount: company.employeeCount + 1
-                }).then(newCompanyData => {
-                    
-                    return res.status(200).send({
-                        message: `success`,
-                        user,
-                        newCompanyData
-
-                    }).catch(err => {
-                        console.error(err);
-                        return res.status(500).send({
-                            message: `error`,
-                            error: err
-                        })
-                    })
-                }).catch(err => {
-                    console.error(err);
-                    return res.status(401).send({
-                        message: `user could not be built`,
-                        err
-                    })
-                })
-            }).catch(err => {
-                console.error(err);
-                return res.status(401).send({
-                    message: `company details was not found. check the company id provided`,
-                    err
-                })
+            return res.status(201).send({
+                message: `success`,
+                user
             })
+            // Company.findByPk(user.companyId).then(company => {
+            //     company.update({
+            //         employeeCount: company.employeeCount + 1
+            //     }).then(newCompanyData => {                    
+            //         return res.status(201).send({
+            //             message: `success`,
+            //             user,
+            //             newCompanyData
+
+            //         }).catch(err => {
+            //             console.error(err);
+            //             return res.status(500).send({
+            //                 message: `error`,
+            //                 error: err
+            //             })
+            //         })
+            //     }).catch(err => {
+            //         console.error(err);
+            //         return res.status(401).send({
+            //             message: `user could not be built`,
+            //             err
+            //         })
+            //     })
+            // }).catch(err => {
+            //     console.error(err);
+            //     return res.status(201).send({
+            //         user,
+            //         message: `company details was not found. but user was created check the company id provided`,
+            //         err
+            //     })
+            // })
         }).catch(err => {
             return res.status(401).send({
                 message: `user could not be added to DB`,

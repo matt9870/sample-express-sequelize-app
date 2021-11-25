@@ -3,7 +3,7 @@ const companyController = require('../controllers/company.controller');
 var companyRouter = express.Router();
 
 companyRouter.get('/', (req, res) => {
-    res.send('company router');
+    res.status(200).json('company router');
 })
 
 companyRouter.post('/create', companyController.createCompany, (req,res) =>{

@@ -2,10 +2,10 @@ var express = require('express');
 const userController = require('../controllers/user.controller');
 var userRouter = express.Router();
 
-userRouter.use(function timeLog(req, res, next) {
-    console.log('Time: ', Date.now())
-    next()
-})
+// userRouter.use(function timeLog(req, res, next) {
+//     console.log('Time: ', Date.now())
+//     next()
+// })
 
 userRouter.get('/', (req, res) => {
     res.send({
